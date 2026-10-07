@@ -1,11 +1,16 @@
 package ro.uvt.info.designpatternslab2026;
 
 import lombok.Getter;
+import lombok.Setter;
+import ro.uvt.info.designpatternslab2026.renderer.AlignStrategy;
 
 @Getter
+@Setter
 public class Paragraph implements Element {
 
     private final String text;
+
+    private AlignStrategy alignStrategy;
 
     public Paragraph(String s) {
         text = s;
@@ -13,6 +18,10 @@ public class Paragraph implements Element {
 
     @Override
     public void print() {
-        System.out.println("Paragraph: " + text);
+        if (alignStrategy != null) {
+            alignStrategy.render(this);
+        } else {
+            System.out.println(text);
+        }
     }
 }
