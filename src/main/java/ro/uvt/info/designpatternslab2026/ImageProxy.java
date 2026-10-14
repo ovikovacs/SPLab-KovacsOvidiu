@@ -1,6 +1,7 @@
 package ro.uvt.info.designpatternslab2026;
 
 import lombok.Getter;
+import ro.uvt.info.designpatternslab2026.visitor.Visitor;
 
 @Getter
 public class ImageProxy implements Element {
@@ -17,6 +18,11 @@ public class ImageProxy implements Element {
     public void print() {
         Image image = loadImage();
         image.print();
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 
     private Image loadImage() {

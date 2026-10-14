@@ -1,6 +1,7 @@
 package ro.uvt.info.designpatternslab2026;
 
 import lombok.Getter;
+import ro.uvt.info.designpatternslab2026.visitor.Visitor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,5 +21,10 @@ public class Image implements Element {
     @Override
     public void print() {
         System.out.println("Image: " + image);
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }

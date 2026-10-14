@@ -1,39 +1,36 @@
 package ro.uvt.info.designpatternslab2026;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import ro.uvt.info.designpatternslab2026.renderer.AlignCenter;
-import ro.uvt.info.designpatternslab2026.renderer.AlignLeft;
-import ro.uvt.info.designpatternslab2026.renderer.AlignRight;
+import ro.uvt.info.designpatternslab2026.visitor.BookStatistics;
+import ro.uvt.info.designpatternslab2026.visitor.GenerateTableOfContents;
 
 @SpringBootApplication
 public class DesignPatternsLab2026Application {
 
     public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
-        ImageProxy img1 = new ImageProxy("Pamela Anderson");
-        ImageProxy img2 = new ImageProxy("Kim Kardashian");
-        ImageProxy img3 = new ImageProxy("Kirby Griffin");
-        Section playboyS1 = new Section("Front Cover");
-        playboyS1.add(img1);
-        Section playboyS2 = new Section("Summer Girls");
-        playboyS2.add(img2);
-        playboyS2.add(img3);
-        Book playboy = new Book("Playboy");
-        playboy.addContent(playboyS1);
-        playboy.addContent(playboyS2);
-        long endTime = System.currentTimeMillis();
-        System.out.println("Creation of the content took " + (endTime -
-                startTime) + " milliseconds");
-        startTime = System.currentTimeMillis();
-        playboyS1.print();
-        endTime = System.currentTimeMillis();
-        System.out.println("Printing of the section 1 took " + (endTime -
-                startTime) + " milliseconds");
-        startTime = System.currentTimeMillis();
-        playboyS1.print();
-        endTime = System.currentTimeMillis();
-        System.out.println("Printing again the section 1 took " + (endTime -
-                startTime) + " milliseconds");
+        Section cap1 = new Section("Capitolul 1");
+        Paragraph p1 = new Paragraph("Paragraph 1");
+        cap1.add(p1);
+        Paragraph p2 = new Paragraph("Paragraph 2");
+        cap1.add(p2);
+        Paragraph p3 = new Paragraph("Paragraph 3");
+        cap1.add(p3);
+        Paragraph p4 = new Paragraph("Paragraph 4");
+        cap1.add(p4);
+        cap1.add(new ImageProxy("ImageOne"));
+        cap1.add(new Image("ImageTwo"));
+        cap1.add(new Paragraph("Some text"));
+        cap1.add(new Table("Table 1"));
+        BookStatistics stats = new BookStatistics();
+        cap1.accept(stats);
+        stats.printStatistics();
+
+        Book book = new Book("Book");
+        book.add(cap1);
+        book.add(new Section("Capitolul 2"));
+        GenerateTableOfContents tableOfContents = new GenerateTableOfContents();
+        book.accept(tableOfContents);
+        tableOfContents.printTableOfContents();
     }
 
 }
