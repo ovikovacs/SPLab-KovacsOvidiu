@@ -3,6 +3,7 @@ package ro.uvt.info.designpatternslab2026;
 import lombok.Getter;
 import lombok.Setter;
 import ro.uvt.info.designpatternslab2026.renderer.AlignStrategy;
+import ro.uvt.info.designpatternslab2026.visitor.Visitor;
 
 @Getter
 @Setter
@@ -23,5 +24,10 @@ public class Paragraph implements Element {
         } else {
             System.out.println(text);
         }
+    }
+
+    @Override
+    public void accept(Visitor visitor) {
+        visitor.visit(this);
     }
 }
